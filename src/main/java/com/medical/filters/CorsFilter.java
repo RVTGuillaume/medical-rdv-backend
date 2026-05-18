@@ -6,11 +6,14 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Properties;
+import java.util.Set;
 
 public class CorsFilter implements Filter {
 
-    private String allowedOrigin;
+    private Set<String> allowedOrigins;
 
     @Override
     public void init(FilterConfig config) throws ServletException {
@@ -18,9 +21,10 @@ public class CorsFilter implements Filter {
                 .getResourceAsStream("config.properties")) {
             Properties props = new Properties();
             props.load(in);
-            allowedOrigin = props.getProperty("app.cors.origin", "http://localhost:5173");
+            String raw = props.getProperty("app.cors.origin", "http://localhost:5173");
+            allowedOrigins = new HashSet<>(Arrays.asList(raw.split(",")));
         } catch (IOException e) {
-            allowedOrigin = "http://localhost:5173";
+            allowedOrigins = new HashSet<>(Arrays.asList("http://localhost:5173"));
         }
     }
 
@@ -31,13 +35,15 @@ public class CorsFilter implements Filter {
         HttpServletRequest  request  = (HttpServletRequest)  req;
         HttpServletResponse response = (HttpServletResponse) res;
 
-        response.setHeader("Access-Control-Allow-Origin",  allowedOrigin);
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Max-Age", "3600");
+        String origin = request.getHeader("Origin");
+        if (origin != null && allowedOrigins.contains(origin.trim())) {
+            response.setHeader("Access-Control-Allow-Origin", origin);
+            response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+            response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            response.setHeader("Access-Control-Allow-Credentials", "true");
+            response.setHeader("Access-Control-Max-Age", "3600");
+        }
 
-        // Pré-vol OPTIONS → répondre 200 immédiatement
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             response.setStatus(HttpServletResponse.SC_OK);
             return;
