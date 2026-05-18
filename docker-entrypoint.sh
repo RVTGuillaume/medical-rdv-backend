@@ -1,16 +1,19 @@
 #!/bin/bash
 # ============================================================
 #  docker-entrypoint.sh
-#  Remplace les valeurs de config.properties par les variables
-#  d'environnement Render avant de démarrer Tomcat
 # ============================================================
 set -e
 
-CONFIG="/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/config.properties"
-TEMPLATE="/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/config.properties.template"
+WAR="/usr/local/tomcat/webapps/ROOT.war"
+ROOT="/usr/local/tomcat/webapps/ROOT"
+CONFIG="$ROOT/WEB-INF/classes/config.properties"
 
-# Restaurer le template à chaque démarrage
-cp "$TEMPLATE" "$CONFIG"
+# Extraire le WAR manuellement avant le démarrage de Tomcat
+echo "[startup] Extraction du WAR..."
+mkdir -p "$ROOT"
+cd "$ROOT"
+unzip -q "$WAR"
+rm "$WAR"
 
 echo "[startup] Injection des variables d'environnement dans config.properties..."
 
@@ -32,7 +35,7 @@ echo "[startup] Injection des variables d'environnement dans config.properties..
 [ -n "$CLOUDINARY_API_KEY" ]    && sed -i "s|cloudinary.api_key=.*|cloudinary.api_key=$CLOUDINARY_API_KEY|" "$CONFIG"
 [ -n "$CLOUDINARY_API_SECRET" ] && sed -i "s|cloudinary.api_secret=.*|cloudinary.api_secret=$CLOUDINARY_API_SECRET|" "$CONFIG"
 
-# --- CORS (URL du frontend Vercel — à mettre à jour après déploiement frontend) ---
+# --- CORS ---
 [ -n "$CORS_ORIGIN" ]           && sed -i "s|app.cors.origin=.*|app.cors.origin=$CORS_ORIGIN|" "$CONFIG"
 
 # --- Admin ---

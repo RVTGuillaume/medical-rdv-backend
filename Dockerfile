@@ -21,16 +21,8 @@ FROM tomcat:10.1-jre21
 # Supprimer les apps par défaut de Tomcat
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Déployer le WAR dans ROOT (accessible à la racine /)
-RUN mkdir -p /usr/local/tomcat/webapps/ROOT
-COPY --from=builder /app/target/medical-rdv.war /tmp/medical-rdv.war
-RUN cd /usr/local/tomcat/webapps/ROOT \
-    && jar -xf /tmp/medical-rdv.war \
-    && rm /tmp/medical-rdv.war
-
-# Sauvegarder config.properties original comme template
-RUN cp /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/config.properties \
-       /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/config.properties.template
+# Déployer le WAR en ROOT.war (Tomcat l'extrait automatiquement au démarrage)
+COPY --from=builder /app/target/medical-rdv.war /usr/local/tomcat/webapps/ROOT.war
 
 # Copier le script de démarrage
 COPY docker-entrypoint.sh /docker-entrypoint.sh
