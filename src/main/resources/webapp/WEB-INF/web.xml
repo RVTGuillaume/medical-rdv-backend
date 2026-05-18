@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+  <display-name>Medical RDV API</display-name>
+
+  <!-- ===== FILTERS ===== -->
+
+  <!-- CORS Filter — doit être le premier -->
+  <filter>
+    <filter-name>CorsFilter</filter-name>
+    <filter-class>com.medical.filters.CorsFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CorsFilter</filter-name>
+    <url-pattern>/api/*</url-pattern>
+  </filter-mapping>
+
+  <!-- JWT Filter — protège toutes les routes sauf /auth/* -->
+  <filter>
+    <filter-name>JwtFilter</filter-name>
+    <filter-class>com.medical.filters.JwtFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>JwtFilter</filter-name>
+    <url-pattern>/api/*</url-pattern>
+  </filter-mapping>
+
+  <!-- ===== SERVLETS ===== -->
+
+  <!-- Auth (login / register) -->
+  <servlet>
+    <servlet-name>AuthServlet</servlet-name>
+    <servlet-class>com.medical.controllers.AuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthServlet</servlet-name>
+    <url-pattern>/api/auth/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Patient -->
+  <servlet>
+    <servlet-name>PatientServlet</servlet-name>
+    <servlet-class>com.medical.controllers.PatientServlet</servlet-class>
+    <multipart-config>
+      <max-file-size>5242880</max-file-size>
+      <max-request-size>10485760</max-request-size>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PatientServlet</servlet-name>
+    <url-pattern>/api/patients/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Medecin -->
+  <servlet>
+    <servlet-name>MedecinServlet</servlet-name>
+    <servlet-class>com.medical.controllers.MedecinServlet</servlet-class>
+    <multipart-config>
+      <max-file-size>5242880</max-file-size>
+      <max-request-size>10485760</max-request-size>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MedecinServlet</servlet-name>
+    <url-pattern>/api/medecins/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- RDV -->
+  <servlet>
+    <servlet-name>RdvServlet</servlet-name>
+    <servlet-class>com.medical.controllers.RdvServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RdvServlet</servlet-name>
+    <url-pattern>/api/rdv/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Horaires -->
+  <servlet>
+    <servlet-name>HoraireServlet</servlet-name>
+    <servlet-class>com.medical.controllers.HoraireServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HoraireServlet</servlet-name>
+    <url-pattern>/api/horaires/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Admin -->
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>com.medical.controllers.AdminServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/api/admin/*</url-pattern>
+  </servlet-mapping>
+
+  <!-- Session timeout -->
+  <session-config>
+    <session-timeout>30</session-timeout>
+  </session-config>
+
+</web-app>

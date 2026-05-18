@@ -1,0 +1,169 @@
+.
+├── pom.xml
+├── src
+│   └── main
+│       ├── java
+│       │   └── com
+│       │       └── medical
+│       │           ├── config
+│       │           │   └── MongoConfig.java
+│       │           ├── controllers
+│       │           │   ├── AdminServlet.java
+│       │           │   ├── AuthServlet.java
+│       │           │   ├── HoraireServlet.java
+│       │           │   ├── MedecinServlet.java
+│       │           │   ├── PatientServlet.java
+│       │           │   └── RdvServlet.java
+│       │           ├── dao
+│       │           │   ├── HoraireDAO.java
+│       │           │   ├── MedecinDAO.java
+│       │           │   ├── PatientDAO.java
+│       │           │   └── RdvDAO.java
+│       │           ├── filters
+│       │           │   ├── CorsFilter.java
+│       │           │   └── JwtFilter.java
+│       │           ├── models
+│       │           │   ├── Horaire.java
+│       │           │   ├── Medecin.java
+│       │           │   ├── Patient.java
+│       │           │   └── Rdv.java
+│       │           ├── services
+│       │           │   ├── AuthService.java
+│       │           │   ├── CloudinaryService.java
+│       │           │   ├── EmailService.java
+│       │           │   └── RdvService.java
+│       │           └── utils
+│       │               ├── JwtUtil.java
+│       │               ├── PasswordUtil.java
+│       │               └── ResponseUtil.java
+│       ├── resources
+│       │   ├── config.properties
+│       │   └── webapp
+│       │       ├── index.jsp
+│       │       └── WEB-INF
+│       │           └── web.xml
+│       └── webapp
+│           └── WEB-INF
+│               └── web.xml
+├── target
+│   ├── classes
+│   │   ├── com
+│   │   │   └── medical
+│   │   │       ├── config
+│   │   │       │   └── MongoConfig.class
+│   │   │       ├── controllers
+│   │   │       │   ├── AdminServlet.class
+│   │   │       │   ├── AuthServlet.class
+│   │   │       │   ├── HoraireServlet.class
+│   │   │       │   ├── MedecinServlet.class
+│   │   │       │   ├── PatientServlet.class
+│   │   │       │   └── RdvServlet.class
+│   │   │       ├── dao
+│   │   │       │   ├── HoraireDAO.class
+│   │   │       │   ├── MedecinDAO.class
+│   │   │       │   ├── PatientDAO.class
+│   │   │       │   └── RdvDAO.class
+│   │   │       ├── filters
+│   │   │       │   ├── CorsFilter.class
+│   │   │       │   └── JwtFilter.class
+│   │   │       ├── models
+│   │   │       │   ├── Horaire.class
+│   │   │       │   ├── Medecin.class
+│   │   │       │   ├── Patient.class
+│   │   │       │   └── Rdv.class
+│   │   │       ├── services
+│   │   │       │   ├── AuthService.class
+│   │   │       │   ├── CloudinaryService.class
+│   │   │       │   ├── EmailService$1.class
+│   │   │       │   ├── EmailService.class
+│   │   │       │   └── RdvService.class
+│   │   │       └── utils
+│   │   │           ├── JwtUtil.class
+│   │   │           ├── PasswordUtil.class
+│   │   │           └── ResponseUtil.class
+│   │   ├── config.properties
+│   │   └── webapp
+│   │       ├── index.jsp
+│   │       └── WEB-INF
+│   │           └── web.xml
+│   ├── generated-sources
+│   │   └── annotations
+│   ├── maven-archiver
+│   │   └── pom.properties
+│   ├── maven-status
+│   │   └── maven-compiler-plugin
+│   │       └── compile
+│   │           └── default-compile
+│   │               ├── createdFiles.lst
+│   │               └── inputFiles.lst
+│   ├── medical-rdv
+│   │   ├── META-INF
+│   │   └── WEB-INF
+│   │       ├── classes
+│   │       │   ├── com
+│   │       │   │   └── medical
+│   │       │   │       ├── config
+│   │       │   │       │   └── MongoConfig.class
+│   │       │   │       ├── controllers
+│   │       │   │       │   ├── AdminServlet.class
+│   │       │   │       │   ├── AuthServlet.class
+│   │       │   │       │   ├── HoraireServlet.class
+│   │       │   │       │   ├── MedecinServlet.class
+│   │       │   │       │   ├── PatientServlet.class
+│   │       │   │       │   └── RdvServlet.class
+│   │       │   │       ├── dao
+│   │       │   │       │   ├── HoraireDAO.class
+│   │       │   │       │   ├── MedecinDAO.class
+│   │       │   │       │   ├── PatientDAO.class
+│   │       │   │       │   └── RdvDAO.class
+│   │       │   │       ├── filters
+│   │       │   │       │   ├── CorsFilter.class
+│   │       │   │       │   └── JwtFilter.class
+│   │       │   │       ├── models
+│   │       │   │       │   ├── Horaire.class
+│   │       │   │       │   ├── Medecin.class
+│   │       │   │       │   ├── Patient.class
+│   │       │   │       │   └── Rdv.class
+│   │       │   │       ├── services
+│   │       │   │       │   ├── AuthService.class
+│   │       │   │       │   ├── CloudinaryService.class
+│   │       │   │       │   ├── EmailService$1.class
+│   │       │   │       │   ├── EmailService.class
+│   │       │   │       │   └── RdvService.class
+│   │       │   │       └── utils
+│   │       │   │           ├── JwtUtil.class
+│   │       │   │           ├── PasswordUtil.class
+│   │       │   │           └── ResponseUtil.class
+│   │       │   ├── config.properties
+│   │       │   └── webapp
+│   │       │       ├── index.jsp
+│   │       │       └── WEB-INF
+│   │       │           └── web.xml
+│   │       ├── lib
+│   │       │   ├── bson-5.1.0.jar
+│   │       │   ├── bson-record-codec-5.1.0.jar
+│   │       │   ├── byte-buddy-1.14.9.jar
+│   │       │   ├── cloudinary-core-1.37.0.jar
+│   │       │   ├── cloudinary-http44-1.37.0.jar
+│   │       │   ├── commons-codec-1.9.jar
+│   │       │   ├── commons-lang3-3.1.jar
+│   │       │   ├── commons-logging-1.2.jar
+│   │       │   ├── httpclient-4.4.jar
+│   │       │   ├── httpcore-4.4.jar
+│   │       │   ├── httpmime-4.4.jar
+│   │       │   ├── jackson-annotations-2.17.0.jar
+│   │       │   ├── jackson-core-2.17.0.jar
+│   │       │   ├── jackson-databind-2.17.0.jar
+│   │       │   ├── jakarta.activation-2.0.1.jar
+│   │       │   ├── jakarta.mail-2.0.1.jar
+│   │       │   ├── jbcrypt-0.4.jar
+│   │       │   ├── jjwt-api-0.12.5.jar
+│   │       │   ├── jjwt-impl-0.12.5.jar
+│   │       │   ├── jjwt-jackson-0.12.5.jar
+│   │       │   ├── mongodb-driver-core-5.1.0.jar
+│   │       │   └── mongodb-driver-sync-5.1.0.jar
+│   │       └── web.xml
+│   └── medical-rdv.war
+└── t.txt
+
+54 directories, 113 files
