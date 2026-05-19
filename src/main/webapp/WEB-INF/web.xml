@@ -97,7 +97,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>HealthServlet</servlet-name>
-    <url-pattern>/health</url-pattern>
+    <url-pattern>/api/health</url-pattern>
   </servlet-mapping>
 
 
